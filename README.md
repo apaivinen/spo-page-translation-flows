@@ -309,7 +309,7 @@ This flow automates the translation of SharePoint site pages into a target langu
     - Fetches the page content and parses the JSON to extract details.
     - URI: `_api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1`
     - Method: `GET`
-5. **Get file metadata** 
+5. **Get file metadata**
     - Fetches file metadata to parse page ETag GUID for HTTP requests
 6. **Get site page webparts** (HTTP)
     - Fetches page webparts via Microsoft Graph
