@@ -7,8 +7,6 @@ Automation is built by using Power Automate Flow and [Microsoft Translator](http
 
 Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.zip)
 
-**Table of contents**
-
 <!-- toc -->
 
 - [Usage](#usage)
@@ -38,7 +36,7 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 
 <!-- tocstop -->
 
-##  Usage
+## Usage
 
 1. Create a new SharePoint Page.
 2. Add your content to the page.
@@ -54,6 +52,7 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 ## Installation
 
 Requirements:
+
 - App registration for power automate flow
 - Power automate account with Power Automate Premium license
 - Sites with additional languages enabled (Currently supports finnish, english, swedish)
@@ -94,14 +93,17 @@ You now have an application with the necessary permissions, along with the **Cl
 
 1. Go to the site where you want to install page translation automation
 2. Add your power automate account to site permissions as member
-3. Make sure you have added site languages to your site(Site settings --> Site Languages) 
+3. Make sure you have added site languages to your site(Site settings --> Site Languages)
 4. Navigate to Site Pages library
-5. Go to library settings 
+5. Go to library settings
 6. Get the library GUID and save it for later use
-	- GUID can be found from URL, for example `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in between of `%7B` and `%7D` so in this example it would be `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
+
+- GUID can be found from URL, for example `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in between of `%7B` and `%7D` so in this example it would be `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
+
 7. Get the site address for later use
 
 Now you should have sharepoint configurations done for one site and you should have following information saved:
+
 - Site Address
 - Site Pages GUID
 
@@ -136,6 +138,7 @@ Set write permissions:
 **POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:  
+
 ```json
 { 
  "roles": ["write"],
@@ -150,7 +153,6 @@ Body:
 
 > [!TIP]
 > Repeat the steps if you if you have more than one site.
-
 
 ## Power Automate Solution
 
@@ -178,7 +180,6 @@ Body:
 > [!IMPORTANT] 
 > If you have multiple sites
 > For each site create a new flow (copy of Parent flow - Start translation) and modify Site Address & GUID to match the site in question.
-
 
 ## Solution overview
 
@@ -218,7 +219,7 @@ This flow monitors a SharePoint site for newly created items in specific languag
 
 ##### Trigger condition expressions
 
-```
+```ts
 @or(equals(triggerBody()?['{Path}'], 'SitePages/en/'), equals(triggerBody()?['{Path}'], 'SitePages/sv/'), equals(triggerBody()?['{Path}'], 'SitePages/fi/'))
 @equals(triggerBody()?['{VersionNumber}'],'0.1')
 ```
@@ -233,7 +234,8 @@ This flow monitors a SharePoint site for newly created items in specific languag
 	    - Boolean results for:
 	        - Path being in a translation folder
 	        - Version being `0.1`
-```
+
+```ts
 Version number value: @{triggerBody()?['{VersionNumber}']}
 Path: @{triggerBody()?['{Path}']}
 
@@ -251,6 +253,7 @@ is news and in translate section?
 Is version 0.1?
 @{equals(triggerBody()?['{VersionNumber}'],'0.1')}
 ```
+
  2. **Run a Child Flow**
 	- **Type:** `Workflow`
 	- **Triggered After:** Compose action succeeds
