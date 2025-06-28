@@ -6,6 +6,7 @@ Automation is built by using Power Automate Flow and [Microsoft Translator](http
 Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.zip)
 
 **Table of contents**
+
 <!-- toc -->
 
 - [Usage](#usage)
@@ -34,7 +35,6 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
     + [Adaptive card JSON](#adaptive-card-json)
 
 <!-- tocstop -->
-
 
 ##  Usage
 
