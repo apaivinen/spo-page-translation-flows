@@ -63,7 +63,7 @@ Requirements:
 
 To enable the flow to read and write SharePoint pages, authorization to the
 Microsoft Graph API is required.  
-  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more
+**Required permission:** `Sites.ReadWrite.All` or if you want to be more
 restrictive select `Sites.Selected`
 
 Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
@@ -73,28 +73,28 @@ Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Reg
    1. Name the app, for example "**SharePoint online page translation flow**"
    1. Select: **Accounts in this organizational directory only (Single tenant)**
 
-2. No need to set Redirect URI
-3. Open the app you just created
-4. Go to **API Permissions**
-5. Remove existing permissions
-6. Add a permission
+1. No need to set Redirect URI
+1. Open the app you just created
+1. Go to **API Permissions**
+1. Remove existing permissions
+1. Add a permission
 
    1. Choose **Microsoft Graph**
    1. Choose **Application permission**
    1. Search for and select `Sites.ReadWrite.All`(or `Sites.Selected`)
    1. Click **Add permissions**
 
-7. Click **Grant admin consent**
-8. Go to Certificates & Secrets
-9. Create a client secret
+1. Click **Grant admin consent**
+1. Go to Certificates & Secrets
+1. Create a client secret
 
    1. Give it a name, for example **Power Automate Translation Flow**
    1. Select expires date, for example **720 days**
 
-10. Copy the **secret value** and save it for later use
-11. Go to **Overview**
-12. Copy **Application (client) ID** and save it for later use
-13. Copy **Directory (tenant) ID** and save it for later use
+1. Copy the **secret value** and save it for later use
+1. Go to **Overview**
+1. Copy **Application (client) ID** and save it for later use
+1. Copy **Directory (tenant) ID** and save it for later use
 
 You now have an application with the necessary permissions, along with the **Client ID**, **Client Secret**, and **Tenant ID**. This information will be used when importing the Power Automate solution.
 
@@ -131,7 +131,7 @@ Get site ID
 Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
 
 Set read permissions:  
-  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:
 
@@ -148,7 +148,7 @@ Body:
 ```
 
 Set write permissions:  
-  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:  
 
