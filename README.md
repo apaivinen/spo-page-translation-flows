@@ -1,6 +1,32 @@
 # SharePoint Online Page Translation Flows
 
 <!-- toc -->
+
+- [Usage](#usage)
+- [Installation](#installation)
+- [Entra ID, App registration](#entra-id-app-registration)
+- [SharePoint Online](#sharepoint-online)
+  * [Power Automate Account settings](#power-automate-account-settings)
+  * [Application permissions to site if using sites.selected permissions](#application-permissions-to-site-if-using-sitesselected-permissions)
+- [Power Automate Solution](#power-automate-solution)
+- [Solution overview](#solution-overview)
+  * [Environmental variables](#environmental-variables)
+  * [Connections](#connections)
+- [Power Automate Flow Documentation](#power-automate-flow-documentation)
+  * [Parent flow - Start translation](#parent-flow---start-translation)
+    + [Trigger](#trigger)
+      - [Trigger condition expressions](#trigger-condition-expressions)
+    + [Actions](#actions)
+    + [Connections used](#connections-used)
+  * [Child flow - Automatic Page Translation](#child-flow---automatic-page-translation)
+    + [Trigger](#trigger-1)
+    + [Key Parameters](#key-parameters)
+    + [Main Steps](#main-steps)
+    + [Connections Used](#connections-used)
+    + [Error Handling](#error-handling)
+    + [Notes](#notes)
+    + [Adaptive card JSON](#adaptive-card-json)
+
 <!-- tocstop -->
 
 Automatic SharePoint online page translation feature which allows users to create page translations from Finnish/English/Swedish to Finnish/English/Swedish depending on site language settings.
