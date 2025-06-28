@@ -41,15 +41,15 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 ## Usage
 
 1. Create a new SharePoint Page.
-2. Add your content to the page.
-3. Save the page as draft (or publish the page).
-4. From the page top suite link bar select "Translation"
-5. Select Create on the language you want to translate to.
+1. Add your content to the page.
+1. Save the page as draft (or publish the page).
+1. From the page top suite link bar select "Translation"
+1. Select Create on the language you want to translate to.
    You can also select "Create for all languages".
    ![Picture 1. Usage](./img/usage.png)
-6. Automation will start and notify you via teams message when translation is done
+1. Automation will start and notify you via teams message when translation is done
    (3000 characters takes around 1 minute to process)
-7. Go to translated page, review it and publish it.
+1. Go to translated page, review it and publish it.
 
 ## Installation
 
@@ -104,16 +104,16 @@ You now have an application with the necessary permissions, along with the **Cl
 ### Power Automate Account settings
 
 1. Go to the site where you want to install page translation automation
-2. Add your power automate account to site permissions as member
-3. Make sure you have added site languages to your site(Site settings --> Site Languages)
-4. Navigate to Site Pages library
-5. Go to library settings
-6. Get the library GUID and save it for later use
+1. Add your power automate account to site permissions as member
+1. Make sure you have added site languages to your site(Site settings --> Site Languages)
+1. Navigate to Site Pages library
+1. Go to library settings
+1. Get the library GUID and save it for later use
    - GUID can be found from URL, for example
    `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in
    between of `%7B` and `%7D` so in this example it would be
    `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
-7. Get the site address for later use
+1. Get the site address for later use
 
 Now you should have sharepoint configurations done for one site and you should have following information saved:
 
@@ -127,7 +127,7 @@ Repeat the steps for each site you want to enable the page translation feature.
 Get site ID
 
 1. In browsers access URL (Replace YOURTENANT and YOURSITE with your SPO site) `https://YOURTENANT.sharepoint.com/sites/YOURSITE/_api/site/id`
-2. Use ID value to create Post request to set site permissions for App (replace YOURSITEID with the id):
+1. Use ID value to create Post request to set site permissions for App (replace YOURSITEID with the id):
 
 Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
 
@@ -172,24 +172,24 @@ Body:
 ## Power Automate Solution
 
 1. Navigate to [Power Automate Portal](https://make.powerautomate.com/) with your power automate account
-2. Select target environment
-3. Go to Solutions
-4. Import a solution
-5. During import authorize connections:
+1. Select target environment
+1. Go to Solutions
+1. Import a solution
+1. During import authorize connections:
    1. **Microsoft Teams**
-   2. **SharePoint**
-   3. **Microsoft Translator**
-6. During import configure following environment variables
+   1. **SharePoint**
+   1. **Microsoft Translator**
+1. During import configure following environment variables
    1. **AutomationAccountEmail**
-   2. **ClientID**
-   3. **ClientSecret**
-   4. **TenantID**
-   5. **InitialSiteID**
-   6. **InitialSitePagesID**
-7. After the import go to **Parent Flow - Start translation** flow and rename flow from **Parent flow - Start translation** to **Parent flow - Start translation - siteName**
-8. Modify Child flow - Automatic page translations section
+   1. **ClientID**
+   1. **ClientSecret**
+   1. **TenantID**
+   1. **InitialSiteID**
+   1. **InitialSitePagesID**
+1. After the import go to **Parent Flow - Start translation** flow and rename flow from **Parent flow - Start translation** to **Parent flow - Start translation - siteName**
+1. Modify Child flow - Automatic page translations section
    1. Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
-   2. Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
+   1. Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
 
 > [!IMPORTANT] 
 > If you have multiple sites
@@ -309,7 +309,7 @@ This flow automates the translation of SharePoint site pages into a target langu
 
     - `SiteUrl` = Target site
     - `LanguagesArray` = Accepted values for translation API
-    - `targetLanguage` = Target language short code, for example "`en`" 
+    - `targetLanguage` = Target language short code, for example "`en`"
     - `targetLanguageName` = Target language display name, for example "`English`"
     - `pageTitle` = Processed page title
     - `OldWebparts` = Original text webparts
@@ -318,38 +318,38 @@ This flow automates the translation of SharePoint site pages into a target langu
     - `NewStandardWebparts` = Translated standard text webpart
     - `at` = @ sign for making HTTP request development easier
 
-2. **Get SharePoint Site ID** (Send an HTTP request to SharePoint)
+1. **Get SharePoint Site ID** (Send an HTTP request to SharePoint)
 
     - Sends an HTTP request to SharePoint to get the site ID.
     - URI: `_api/site/id`
     - Method: `GET`
 
-3. **Get SharePoint Page Properties** (Get file properties)
+1. **Get SharePoint Page Properties** (Get file properties)
 
     - Retrieves file properties and metadata for the specified SharePoint page.
 
-4. **Get Page Content and Structure** (Send an HTTP request to SharePoint)
+1. **Get Page Content and Structure** (Send an HTTP request to SharePoint)
 
     - Fetches the page content and parses the JSON to extract details.
     - URI: `_api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1`
     - Method: `GET`
 
-5. **Get file metadata**
+1. **Get file metadata**
 
     - Fetches file metadata to parse page ETag GUID for HTTP requests
 
-6. **Get site page webparts** (HTTP)
+1. **Get site page webparts** (HTTP)
 
     - Fetches page webparts via Microsoft Graph
     - URI: `https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage`
     - Method: `GET`
 
-7. **Determine Target Language**
+1. **Determine Target Language**
 
     - Looks up the target language and language name from a predefined array (`LanguagesArray`) based on the page’s translation settings.
     - If not found, defaults to English.
 
-8. **Process Web Parts**
+1. **Process Web Parts**
 
     - Retrieves all web parts on the page.
     - For each web part:
@@ -357,19 +357,19 @@ This flow automates the translation of SharePoint site pages into a target langu
         - If it’s a standard web part, translates its title if present.
     - Updates the web parts with the translated content.
 
-9. **Add AI Translation Disclaimer**
+1. **Add AI Translation Disclaimer**
 
     - Adds a new section to the page with a translated notice that the page was automatically translated by AI.
 
-10. **Translate and Update Page Title**
+1. **Translate and Update Page Title**
 
     - Translates the page title and updates it on the SharePoint page.
 
-11. **Notify Author**
+1. **Notify Author**
 
     - Sends an Adaptive Card via Teams to the user who initiated the translation, including a link to the translated page.
 
-12. **Response**
+1. **Response**
 
     - Returns HTTP 200 on success, or HTTP 400 on failure.
 
