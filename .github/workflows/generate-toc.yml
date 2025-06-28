@@ -15,4 +15,3 @@ jobs:
     uses: apaivinen/shared-workflows/.github/workflows/generate-toc.yml@main
     with:
       target_file: README.md
-      toc_header: 'Table of Contents'
