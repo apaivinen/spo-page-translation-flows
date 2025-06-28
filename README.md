@@ -127,10 +127,10 @@ Get site ID
 1. Use ID value to create Post request to set site permissions for App,  
 replace YOURSITEID with the id:
 
-Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
+Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)
 
 Set read permissions:  
-Method `POST` to URI: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+Method `POST` to URI: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`
 
 Body:
 
@@ -146,11 +146,11 @@ Body:
 }
 ```
 
-Set write permissions:  
+Set write permissions:
 
-Method `POST` to URI: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+Method `POST` to URI: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`
 
-Body:  
+Body:
 
 ```json
 { 
@@ -189,7 +189,7 @@ Body:
    1. Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
    1. Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > If you have multiple sites
 > For each site create a new flow (copy of Parent flow - Start translation) and modify Site Address & GUID to match the site in question.
 
@@ -217,8 +217,8 @@ This flow monitors a SharePoint site for newly created items in specific languag
 
 #### Trigger
 
-- *Type:**`OpenApiConnection`
-- *Event:** `When an item is created`
+- **Type:** `OpenApiConnection`
+- **Event:** `When an item is created`
 - **Recurrence:** Every 1 minute
 - **SharePoint Site:** `https://YOURTENANT.sharepoint.com/sites/YOURSITE`
 - **Target Library/Table ID:** `YourSitePagesLibraryID`
@@ -231,7 +231,7 @@ This flow monitors a SharePoint site for newly created items in specific languag
 
 #### Trigger condition expressions
 
-```ts
+```txt
 @or(equals(triggerBody()?['{Path}'], 'SitePages/en/'), equals(triggerBody()?['{Path}'], 'SitePages/sv/'), equals(triggerBody()?['{Path}'], 'SitePages/fi/'))
 @equals(triggerBody()?['{VersionNumber}'],'0.1')
 ```
@@ -247,7 +247,7 @@ This flow monitors a SharePoint site for newly created items in specific languag
         - Path being in a translation folder
         - Version being `0.1`
 
-```ts
+```txt
 Version number value: @{triggerBody()?['{VersionNumber}']}
 Path: @{triggerBody()?['{Path}']}
 
@@ -283,12 +283,16 @@ Is version 0.1?
 
 ### Child flow - Automatic Page Translation
 
-This flow automates the translation of SharePoint site pages into a target language using Microsoft Translator and updates the page content, web parts, and title accordingly. It also notifies the user via Microsoft Teams when the translation is complete.
+This flow automates the translation of SharePoint site pages  
+into a target language using Microsoft Translator and updates the page content,  
+web parts, and title accordingly.  
+It also notifies the user via Microsoft Teams when the translation is complete.
 
 #### Trigger - Manual HTTP Request
 
 - **Manual HTTP Request Trigger**  
-    The flow is initiated by an HTTP POST request, typically from another flow or application. Only authorized users specified in `AutomationAccountEmail` environmental variable can trigger it.
+    The flow is initiated by an HTTP POST request, typically from another flow or application.  Only authorized users specified in `AutomationAccountEmail` environmental variable  
+    can trigger the flow.
 - **HTTP POST request contains**:
   - `Link`: URL to the SharePoint page
   - `createdBy`: User to notify
@@ -329,8 +333,12 @@ This flow automates the translation of SharePoint site pages into a target langu
 1. **Get Page Content and Structure** (Send an HTTP request to SharePoint)
 
     - Fetches the page content and parses the JSON to extract details.
-    - URI: `_api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1`
     - Method: `GET`
+    - URI:
+
+    ```txt
+    _api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1
+    ```
 
 1. **Get file metadata**
 
@@ -339,8 +347,12 @@ This flow automates the translation of SharePoint site pages into a target langu
 1. **Get site page webparts** (HTTP)
 
     - Fetches page webparts via Microsoft Graph
-    - URI: `https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage`
     - Method: `GET`
+    - URI:
+
+    ```txt
+    https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage
+    ```
 
 1. **Determine Target Language**
 
