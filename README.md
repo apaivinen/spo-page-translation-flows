@@ -35,7 +35,7 @@ To enable the flow to read and write SharePoint pages, authorization to the Micr
 Navigagte to https://entra.microsoft.com/ -> Applications -> App Registration
 1. Create a new app registration
 2. Name the app, for example "**SharePoint online page translation flow**"
-	-   Select: **Accounts in this organizational directory only (Single tenant)**
+	- Select: **Accounts in this organizational directory only (Single tenant)**
 	- No need to set Redirect URI
 3. Open the app you just created
 4. Go to **API Permissions**
