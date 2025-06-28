@@ -122,7 +122,7 @@ Get site ID
 1. In browsers access URL (Replace YOURTENANT and YOURSITE with your SPO site) `https://YOURTENANT.sharepoint.com/sites/YOURSITE/_api/site/id`
 2. Use ID value to create Post request to set site permissions for App (replace YOURSITEID with the id):
 
-Use for example Graph explorer https://developer.microsoft.com/en-us/graph/graph-explorer  
+Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
 
 Set read permissions:  
   -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
@@ -163,7 +163,7 @@ Body:
 
 ## Power Automate Solution
 
-1. Navigate to https://make.powerautomate.com/ with your power automate account
+1. Navigate to [Power Automate Portal](https://make.powerautomate.com/) with your power automate account
 2. Select target environment
 3. Go to Solutions
 4. Import a solution
