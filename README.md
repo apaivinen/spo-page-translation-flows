@@ -46,8 +46,8 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 4. From the page top suite link bar select "Translation"
 5. Select Create on the language you want to translate to.
    You can also select "Create for all languages".
-![Picture 1. Usage](./img/usage.png)
-6. Automation will start and notify you via teams message when translation is done 
+   ![Picture 1. Usage](./img/usage.png)
+6. Automation will start and notify you via teams message when translation is done
    (3000 characters takes around 1 minute to process)
 7. Go to translated page, review it and publish it.
 
@@ -62,11 +62,11 @@ Requirements:
 ## Entra ID, App registration
 
 To enable the flow to read and write SharePoint pages, authorization to the
-Microsoft Graph API is required.
-  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more
-  restrictive select `Sites.Selected`
+Microsoft Graph API is required.  
+**Required permission:** `Sites.ReadWrite.All` or if you want to be more
+restrictive select `Sites.Selected`
 
-Navigagte to https://entra.microsoft.com/ -> Applications -> App Registration
+Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
 
 1. Create a new app registration
 2. Name the app, for example "**SharePoint online page translation flow**"
