@@ -12,26 +12,26 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 - [Installation](#installation)
 - [Entra ID, App registration](#entra-id-app-registration)
 - [SharePoint Online](#sharepoint-online)
-  * [Power Automate Account settings](#power-automate-account-settings)
-  * [Application permissions to site if using sites.selected permissions](#application-permissions-to-site-if-using-sitesselected-permissions)
+  - [Power Automate Account settings](#power-automate-account-settings)
+  - [Application permissions to site if using sites.selected permissions](#application-permissions-to-site-if-using-sitesselected-permissions)
 - [Power Automate Solution](#power-automate-solution)
 - [Solution overview](#solution-overview)
-  * [Environmental variables](#environmental-variables)
-  * [Connections](#connections)
+  - [Environmental variables](#environmental-variables)
+  - [Connections](#connections)
 - [Power Automate Flow Documentation](#power-automate-flow-documentation)
-  * [Parent flow - Start translation](#parent-flow---start-translation)
-    + [Trigger](#trigger)
+  - [Parent flow - Start translation](#parent-flow---start-translation)
+  - [Trigger](#trigger)
       - [Trigger condition expressions](#trigger-condition-expressions)
-    + [Actions](#actions)
-    + [Connections used](#connections-used)
-  * [Child flow - Automatic Page Translation](#child-flow---automatic-page-translation)
-    + [Trigger](#trigger-1)
-    + [Key Parameters](#key-parameters)
-    + [Main Steps](#main-steps)
-    + [Connections Used](#connections-used)
-    + [Error Handling](#error-handling)
-    + [Notes](#notes)
-    + [Adaptive card JSON](#adaptive-card-json)
+  - [Actions](#actions)
+  - [Connections used](#connections-used)
+  - [Child flow - Automatic Page Translation](#child-flow---automatic-page-translation)
+  - [Trigger - Manual HTTP Request](#trigger---manual-http-request)
+  - [Key Parameters](#key-parameters)
+  - [Main Steps](#main-steps)
+  - [Connections Used](#connections-used)
+  - [Error Handling](#error-handling)
+  - [Notes](#notes)
+  - [Adaptive card JSON](#adaptive-card-json)
 
 <!-- tocstop -->
 
@@ -57,7 +57,7 @@ Requirements:
 ## Entra ID, App registration
 
 To enable the flow to read and write SharePoint pages, authorization to the Microsoft Graph API is required.
-**Required permission:** `Sites.ReadWrite.All` or if you want to be more restrictive select `Sites.Selected`
+  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more restrictive select `Sites.Selected`
 
 Navigagte to https://entra.microsoft.com/ -> Applications -> App Registration
 
@@ -115,7 +115,7 @@ Get site ID
 Use for example Graph explorer https://developer.microsoft.com/en-us/graph/graph-explorer  
 
 Set read permissions:  
-**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:  
 ```json
@@ -131,7 +131,7 @@ Body:
 ```
 
 Set write permissions:  
-**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:  
 
@@ -201,8 +201,8 @@ This flow monitors a SharePoint site for newly created items in specific languag
 
 #### Trigger
 
-**Type:** `OpenApiConnection` 
-**Event:** `When an item is created`
+  -*Type:** `OpenApiConnection` 
+  -*Event:** `When an item is created`
 - **Recurrence:** Every 1 minute
 - **SharePoint Site:** `https://YOURTENANT.sharepoint.com/sites/YOURSITE`
 - **Target Library/Table ID:** `YourSitePagesLibraryID`
