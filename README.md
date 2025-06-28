@@ -69,9 +69,9 @@ restrictive select `Sites.Selected`
 Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
 
 1. Create a new app registration
-2. Name the app, for example "**SharePoint online page translation flow**"
-   - Select: **Accounts in this organizational directory only (Single tenant)**
-   - No need to set Redirect URI
+   1. Name the app, for example "**SharePoint online page translation flow**"
+   2. Select: **Accounts in this organizational directory only (Single tenant)**
+2. No need to set Redirect URI
 3. Open the app you just created
 4. Go to **API Permissions**
 5. Remove existing permissions
@@ -168,21 +168,20 @@ Body:
 3. Go to Solutions
 4. Import a solution
 5. During import authorize connections:
-   - **Microsoft Teams**
-   - **SharePoint**
-   - **Microsoft Translator**
+   1. **Microsoft Teams**
+   2. **SharePoint**
+   3. **Microsoft Translator**
 6. During import configure following environment variables
-   - **AutomationAccountEmail**
-   - **ClientID**
-   - **ClientSecret**
-   - **TenantID**
-   - **InitialSiteID**
-   - **InitialSitePagesID**
-
+   1. **AutomationAccountEmail**
+   2. **ClientID**
+   3. **ClientSecret**
+   4. **TenantID**
+   5. **InitialSiteID**
+   6. **InitialSitePagesID**
 7. After the import go to **Parent Flow - Start translation** flow and rename flow from **Parent flow - Start translation** to **Parent flow - Start translation - siteName**
 8. Modify Child flow - Automatic page translations section
-   - Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
-   - Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
+   1. Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
+   2. Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
 
 > [!IMPORTANT] 
 > If you have multiple sites
@@ -299,6 +298,7 @@ This flow automates the translation of SharePoint site pages into a target langu
 #### Main Steps
 
 1. **Initialize Variables**
+
     - `SiteUrl` = Target site
     - `LanguagesArray` = Accepted values for translation API
     - `targetLanguage` = Target language short code, for example "`en`" 
@@ -311,37 +311,58 @@ This flow automates the translation of SharePoint site pages into a target langu
     - `at` = @ sign for making HTTP request development easier
 
 2. **Get SharePoint Site ID** (Send an HTTP request to SharePoint)
+
     - Sends an HTTP request to SharePoint to get the site ID.
     - URI: `_api/site/id`
     - Method: `GET`
+
 3. **Get SharePoint Page Properties** (Get file properties)
+
     - Retrieves file properties and metadata for the specified SharePoint page.
+
 4. **Get Page Content and Structure** (Send an HTTP request to SharePoint)
+
     - Fetches the page content and parses the JSON to extract details.
     - URI: `_api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1`
     - Method: `GET`
+
 5. **Get file metadata**
+
     - Fetches file metadata to parse page ETag GUID for HTTP requests
+
 6. **Get site page webparts** (HTTP)
+
     - Fetches page webparts via Microsoft Graph
     - URI: `https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage`
     - Method: `GET`
+
 7. **Determine Target Language**
+
     - Looks up the target language and language name from a predefined array (`LanguagesArray`) based on the page’s translation settings.
     - If not found, defaults to English.
+
 8. **Process Web Parts**
+
     - Retrieves all web parts on the page.
     - For each web part:
         - If it’s a text web part, translates its content.
         - If it’s a standard web part, translates its title if present.
     - Updates the web parts with the translated content.
+
 9. **Add AI Translation Disclaimer**
+
     - Adds a new section to the page with a translated notice that the page was automatically translated by AI.
+
 10. **Translate and Update Page Title**
+
     - Translates the page title and updates it on the SharePoint page.
+
 11. **Notify Author**
+
     - Sends an Adaptive Card via Teams to the user who initiated the translation, including a link to the translated page.
+
 12. **Response**
+
     - Returns HTTP 200 on success, or HTTP 400 on failure.
 
 #### Connections Used
