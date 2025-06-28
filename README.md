@@ -69,22 +69,28 @@ restrictive select `Sites.Selected`
 Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
 
 1. Create a new app registration
-   1. Name the app, for example "**SharePoint online page translation flow**"
-   2. Select: **Accounts in this organizational directory only (Single tenant)**
+
+   - Name the app, for example "**SharePoint online page translation flow**"
+   - Select: **Accounts in this organizational directory only (Single tenant)**
+
 2. No need to set Redirect URI
 3. Open the app you just created
 4. Go to **API Permissions**
 5. Remove existing permissions
 6. Add a permission
+
    1. Choose **Microsoft Graph**
    2. Choose **Application permission**
    3. Search for and select `Sites.ReadWrite.All`(or `Sites.Selected`)
    4. Click **Add permissions**
-7. Click **Grant admin consent** 
+
+7. Click **Grant admin consent**
 8. Go to Certificates & Secrets
 9. Create a client secret
+
    1. Give it a name, for example **Power Automate Translation Flow**
    2. Select expires date, for example **720 days**
+
 10. Copy the **secret value** and save it for later use
 11. Go to **Overview**
 12. Copy **Application (client) ID** and save it for later use
