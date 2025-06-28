@@ -1,4 +1,3 @@
-
 # SharePoint Online Page Translation Flows
 
 Automatic SharePoint online page translation feature which allows users to create page translations from Finnish/English/Swedish to Finnish/English/Swedish depending on site language settings.
