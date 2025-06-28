@@ -265,12 +265,11 @@ Is version 0.1?
 - **Service:** SharePoint Online
 - **Connection Logical Name:** `apa_sharedsharepointonline_492b8`
 
-
 ### Child flow - Automatic Page Translation
 
 This flow automates the translation of SharePoint site pages into a target language using Microsoft Translator and updates the page content, web parts, and title accordingly. It also notifies the user via Microsoft Teams when the translation is complete.
 
-#### Trigger
+#### Trigger - Manual HTTP Request
 
 - **Manual HTTP Request Trigger**  
     The flow is initiated by an HTTP POST request, typically from another flow or application. Only authorized users specified in `AutomationAccountEmail` environmental variable can trigger it.
