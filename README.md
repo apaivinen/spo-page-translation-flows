@@ -201,8 +201,8 @@ This flow monitors a SharePoint site for newly created items in specific languag
 
 #### Trigger
 
-  -*Type:** `OpenApiConnection` 
-  -*Event:** `When an item is created`
+- *Type:**`OpenApiConnection`
+- *Event:** `When an item is created`
 - **Recurrence:** Every 1 minute
 - **SharePoint Site:** `https://YOURTENANT.sharepoint.com/sites/YOURSITE`
 - **Target Library/Table ID:** `YourSitePagesLibraryID`
@@ -213,7 +213,7 @@ This flow monitors a SharePoint site for newly created items in specific languag
     - `SitePages/sv/`
   - The item version number must be `0.1`
 
-##### Trigger condition expressions
+#### Trigger condition expressions
 
 ```ts
 @or(equals(triggerBody()?['{Path}'], 'SitePages/en/'), equals(triggerBody()?['{Path}'], 'SitePages/sv/'), equals(triggerBody()?['{Path}'], 'SitePages/fi/'))
