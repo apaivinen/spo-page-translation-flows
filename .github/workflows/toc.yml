@@ -29,7 +29,16 @@ jobs:
 
       - name: Normalize list bullets to dashes
         run: |
-          sed -i 's/^[[:space:]]*[*+]/  -/g' README.md
+          awk '
+            BEGIN { toc=0 }
+            /<!-- toc -->/ { toc=1; print; next }
+            /<!-- tocstop -->/ { toc=0; print; next }
+            toc == 1 {
+              sub(/^[[:space:]]*[*+]/, "  -")
+            }
+            { print }
+          ' README.md > temp.md && mv temp.md README.md
+
 
       - name: Commit changes
         run: |
