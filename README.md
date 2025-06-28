@@ -63,7 +63,7 @@ Requirements:
 
 To enable the flow to read and write SharePoint pages, authorization to the
 Microsoft Graph API is required.  
-  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more
+**Required permission:** `Sites.ReadWrite.All` or if you want to be more
 restrictive select `Sites.Selected`
 
 Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
@@ -131,7 +131,7 @@ Get site ID
 Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
 
 Set read permissions:  
-  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:
 
@@ -148,7 +148,7 @@ Body:
 ```
 
 Set write permissions:  
-  -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
+**POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
 Body:  
 
