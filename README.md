@@ -1,4 +1,6 @@
+
 # SharePoint Online Page Translation Flows
+
 Automatic SharePoint online page translation feature which allows users to create page translations from Finnish/English/Swedish to Finnish/English/Swedish depending on site language settings.
 
 Automation is built by using Power Automate Flow and [Microsoft Translator](https://learn.microsoft.com/en-us/connectors/translatorv2).  (Translation limit with free is 55 000 characters per day).
@@ -89,6 +91,7 @@ You now have an application with the necessary permissions, along with the **Cl
 ## SharePoint Online
 
 ### Power Automate Account settings
+
 1. Go to the site where you want to install page translation automation
 2. Add your power automate account to site permissions as member
 3. Make sure you have added site languages to your site(Site settings --> Site Languages) 
@@ -105,6 +108,7 @@ Now you should have sharepoint configurations done for one site and you should h
 Repeat the steps for each site you want to enable the page translation feature.
 
 ### Application permissions to site if using sites.selected permissions
+
 Get site ID
 
 1. In browsers access URL (Replace YOURTENANT and YOURSITE with your SPO site) `https://YOURTENANT.sharepoint.com/sites/YOURSITE/_api/site/id`
@@ -149,6 +153,7 @@ Body:
 
 
 ## Power Automate Solution
+
 1. Navigate to https://make.powerautomate.com/ with your power automate account
 2. Select target environment
 3. Go to Solutions
@@ -178,21 +183,27 @@ Body:
 ## Solution overview
 
 ### Environmental variables
+
 - **ClientID, ClientSecret, TenantID, Audience**: Used for authenticating with Microsoft Graph API.
 - **AI-Information-Text**: The notice text added to each translated page.
 - **AutomationAccountEmail**: Email address of the automation which is calling child flow
 - **InitialSiteUrl**: The initial site URL where you want connect page translations
 - **InitialSitePagesID**: The initial site Pages ID where you want to connect page translations
+
 ### Connections
+
 - **SharePoint Online**: For retrieving and updating page content.
 - **Microsoft Translator**: For translating text.
 - **Microsoft Teams**: For sending Teams adaptive card notifications.
 
-
 ## Power Automate Flow Documentation
+
 ### Parent flow - Start translation
+
 This flow monitors a SharePoint site for newly created items in specific language folders and triggers a child flow to handle translation tasks when certain conditions are met.
+
 #### Trigger
+
 **Type:** `OpenApiConnection` 
 **Event:** `When an item is created`
 - **Recurrence:** Every 1 minute
@@ -206,6 +217,7 @@ This flow monitors a SharePoint site for newly created items in specific languag
     - The item version number must be `0.1`
 
 ##### Trigger condition expressions
+
 ```
 @or(equals(triggerBody()?['{Path}'], 'SitePages/en/'), equals(triggerBody()?['{Path}'], 'SitePages/sv/'), equals(triggerBody()?['{Path}'], 'SitePages/fi/'))
 @equals(triggerBody()?['{VersionNumber}'],'0.1')
@@ -248,13 +260,19 @@ Is version 0.1?
 	    - `createdBy`: Author's email
 	    - `sharepointPageID`: ID of the SharePoint page
 	    - `PagesLibraryGUID`: `YourSitePagesLibraryID`
+
 #### Connections used
+
 - **Service:** SharePoint Online
 - **Connection Logical Name:** `apa_sharedsharepointonline_492b8`
----
+
+
 ### Child flow - Automatic Page Translation
+
 This flow automates the translation of SharePoint site pages into a target language using Microsoft Translator and updates the page content, web parts, and title accordingly. It also notifies the user via Microsoft Teams when the translation is complete.
+
 #### Trigger
+
 - **Manual HTTP Request Trigger**  
     The flow is initiated by an HTTP POST request, typically from another flow or application. Only authorized users specified in `AutomationAccountEmail` environmental variable can trigger it.
 - **HTTP POST request contains**:
@@ -262,11 +280,15 @@ This flow automates the translation of SharePoint site pages into a target langu
     - `createdBy`: User to notify
     - `sharepointPageID`: ID of the SharePoint page
     - `PagesLibraryGUID`: GUID of the SharePoint Pages library
+
 #### Key Parameters
+
 - **ClientID, ClientSecret, TenantID, Audience**: Used for authenticating with Microsoft Graph API.
 - **AI-Information-Text**: Notice text added to every translated page.
 - **Target Language**: Provided in the request or determined from the page metadata.
+
 #### Main Steps
+
 1. **Initialize Variables**
     - `SiteUrl` = Target site
     - `LanguagesArray` = Accepted values for translation API
@@ -311,19 +333,26 @@ This flow automates the translation of SharePoint site pages into a target langu
     - Sends an Adaptive Card via Teams to the user who initiated the translation, including a link to the translated page.
 12. **Response**
     - Returns HTTP 200 on success, or HTTP 400 on failure.
+
 #### Connections Used
+
 - **SharePoint Online**: For retrieving and updating page content.
 - **Microsoft Translator**: For translating text.
 - **Microsoft Teams**: For sending notifications.
+
 #### Error Handling
+
 - If any step fails, the flow returns an HTTP 400 response.
 - If the target language is not found, it defaults to English.
+
 #### Notes
+
 - The translation notice is always added to the bottom of the page.
 - Only text web parts and standard web part titles are translated; other web part types are ignored.
 - The flow uses Microsoft Graph API for advanced SharePoint page operations.
 
 #### Adaptive card JSON
+
 ```json
 {
     "type": "AdaptiveCard",
