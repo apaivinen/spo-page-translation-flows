@@ -21,7 +21,7 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 - [Power Automate Flow Documentation](#power-automate-flow-documentation)
   - [Parent flow - Start translation](#parent-flow---start-translation)
   - [Trigger](#trigger)
-      - [Trigger condition expressions](#trigger-condition-expressions)
+    - [Trigger condition expressions](#trigger-condition-expressions)
   - [Actions](#actions)
   - [Connections used](#connections-used)
   - [Child flow - Automatic Page Translation](#child-flow---automatic-page-translation)
