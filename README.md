@@ -1,8 +1,11 @@
 # SharePoint Online Page Translation Flows
 
-Automatic SharePoint online page translation feature which allows users to create page translations from Finnish/English/Swedish to Finnish/English/Swedish depending on site language settings.
+Automatic SharePoint online page translation feature which allows users to create page translations
+from Finnish/English/Swedish to Finnish/English/Swedish depending on site language settings.
 
-Automation is built by using Power Automate Flow and [Microsoft Translator](https://learn.microsoft.com/en-us/connectors/translatorv2).  (Translation limit with free is 55 000 characters per day).
+Automation is built by using Power Automate Flow and  
+[Microsoft Translator](https://learn.microsoft.com/en-us/connectors/translatorv2).  
+(Translation limit with free is 55 000 characters per day).
 
 Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.zip)
 
@@ -41,9 +44,11 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 2. Add your content to the page.
 3. Save the page as draft (or publish the page).
 4. From the page top suite link bar select "Translation"
-5. Select Create on the language you want to translate to. You can also select "Create for all languages".
+5. Select Create on the language you want to translate to.
+   You can also select "Create for all languages".
 ![Picture 1. Usage](./img/usage.png)
-6. Automation will start and notify you via teams message when translation is done (3000 characters takes around 1 minute to process)
+6. Automation will start and notify you via teams message when translation is done 
+   (3000 characters takes around 1 minute to process)
 7. Go to translated page, review it and publish it.
 
 ## Installation
@@ -56,8 +61,10 @@ Requirements:
 
 ## Entra ID, App registration
 
-To enable the flow to read and write SharePoint pages, authorization to the Microsoft Graph API is required.
-  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more restrictive select `Sites.Selected`
+To enable the flow to read and write SharePoint pages, authorization to the
+Microsoft Graph API is required.
+  -*Required permission:** `Sites.ReadWrite.All` or if you want to be more
+  restrictive select `Sites.Selected`
 
 Navigagte to https://entra.microsoft.com/ -> Applications -> App Registration
 
@@ -95,7 +102,10 @@ You now have an application with the necessary permissions, along with the **Cl
 4. Navigate to Site Pages library
 5. Go to library settings
 6. Get the library GUID and save it for later use
-   - GUID can be found from URL, for example `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in between of `%7B` and `%7D` so in this example it would be `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
+   - GUID can be found from URL, for example
+   `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in
+   between of `%7B` and `%7D` so in this example it would be
+   `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
 7. Get the site address for later use
 
 Now you should have sharepoint configurations done for one site and you should have following information saved:
@@ -117,7 +127,8 @@ Use for example Graph explorer https://developer.microsoft.com/en-us/graph/graph
 Set read permissions:  
   -*POST** request to **URI**: `https://graph.microsoft.com/v1.0/sites/YOURSITEID/permissions`  
 
-Body:  
+Body:
+
 ```json
 { 
  "roles": ["read"],
