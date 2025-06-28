@@ -70,34 +70,30 @@ Microsoft Graph API is required.
 Navigagte to [Entra ID](https://entra.microsoft.com/) -> Applications -> App Registration
 
 1. Create a new app registration
-
    1. Name the app, for example "**SharePoint online page translation flow**"
    1. Select: **Accounts in this organizational directory only (Single tenant)**
-
 1. No need to set Redirect URI
 1. Open the app you just created
 1. Go to **API Permissions**
 1. Remove existing permissions
 1. Add a permission
-
    1. Choose **Microsoft Graph**
    1. Choose **Application permission**
    1. Search for and select `Sites.ReadWrite.All`(or `Sites.Selected`)
    1. Click **Add permissions**
-
 1. Click **Grant admin consent**
 1. Go to Certificates & Secrets
 1. Create a client secret
-
    1. Give it a name, for example **Power Automate Translation Flow**
    1. Select expires date, for example **720 days**
-
 1. Copy the **secret value** and save it for later use
 1. Go to **Overview**
 1. Copy **Application (client) ID** and save it for later use
 1. Copy **Directory (tenant) ID** and save it for later use
 
-You now have an application with the necessary permissions, along with the **Client ID**, **Client Secret**, and **Tenant ID**. This information will be used when importing the Power Automate solution.
+You now have an application with the necessary permissions,
+along with the **Client ID**, **Client Secret**, and **Tenant ID**.
+This information will be used when importing the Power Automate solution.
 
 ## SharePoint Online
 
