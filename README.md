@@ -111,7 +111,8 @@ This information will be used when importing the Power Automate solution.
    `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
 1. Get the site address for later use
 
-Now you should have sharepoint configurations done for one site and you should have following information saved:
+Now you should have sharepoint configurations done for one site,  
+and you should  have following information saved:
 
 - Site Address
 - Site Pages GUID
@@ -122,8 +123,9 @@ Repeat the steps for each site you want to enable the page translation feature.
 
 Get site ID
 
-1. In browsers access URL (Replace YOURTENANT and YOURSITE with your SPO site) `https://YOURTENANT.sharepoint.com/sites/YOURSITE/_api/site/id`
-1. Use ID value to create Post request to set site permissions for App (replace YOURSITEID with the id):
+1. In browsers access URL (Replace YOURTENANT and YOURSITE with your SPO site)  `https://YOURTENANT.sharepoint.com/sites/YOURSITE/_api/site/id`
+1. Use ID value to create Post request to set site permissions for App,  
+replace YOURSITEID with the id:
 
 Use for example [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)  
 
@@ -342,7 +344,8 @@ This flow automates the translation of SharePoint site pages into a target langu
 
 1. **Determine Target Language**
 
-    - Looks up the target language and language name from a predefined array (`LanguagesArray`) based on the page’s translation settings.
+    - Looks up the target language and language name from a predefined array (`LanguagesArray`)  
+    based on the page’s translation settings.
     - If not found, defaults to English.
 
 1. **Process Web Parts**
@@ -355,7 +358,8 @@ This flow automates the translation of SharePoint site pages into a target langu
 
 1. **Add AI Translation Disclaimer**
 
-    - Adds a new section to the page with a translated notice that the page was automatically translated by AI.
+    - Adds a new section to the page with a translated info text,  
+    the page was automatically translated by AI.
 
 1. **Translate and Update Page Title**
 
@@ -363,7 +367,8 @@ This flow automates the translation of SharePoint site pages into a target langu
 
 1. **Notify Author**
 
-    - Sends an Adaptive Card via Teams to the user who initiated the translation, including a link to the translated page.
+    - Sends an Adaptive Card via Teams to the user who initiated the translation,  
+    including a link to the translated page.
 
 1. **Response**
 
