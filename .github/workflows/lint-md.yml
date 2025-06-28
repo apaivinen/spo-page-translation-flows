@@ -1,0 +1,14 @@
+# .github/workflows/lint.yml in consumer repo
+name: Lint markdown
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+  workflow_dispatch:
+
+jobs:
+  lint:
+    uses: apaivinen/shared-workflows/.github/workflows/lint-markdown.yml@main
+    with:
+      markdown_globs: "**/*.md"
