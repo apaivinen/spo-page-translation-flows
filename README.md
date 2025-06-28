@@ -42,9 +42,7 @@ Link to solution: [SPOTranslationsFlow_1_0_0_1.zip](SPOTranslationFlows_1_0_0_1.
 3. Save the page as draft (or publish the page).
 4. From the page top suite link bar select "Translation"
 5. Select Create on the language you want to translate to. You can also select "Create for all languages".
-
 ![Picture 1. Usage](./img/usage.png)
-
 6. Automation will start and notify you via teams message when translation is done (3000 characters takes around 1 minute to process)
 7. Go to translated page, review it and publish it.
 
@@ -62,23 +60,24 @@ To enable the flow to read and write SharePoint pages, authorization to the Micr
 **Required permission:** `Sites.ReadWrite.All` or if you want to be more restrictive select `Sites.Selected`
 
 Navigagte to https://entra.microsoft.com/ -> Applications -> App Registration
+
 1. Create a new app registration
 2. Name the app, for example "**SharePoint online page translation flow**"
-	- Select: **Accounts in this organizational directory only (Single tenant)**
-	- No need to set Redirect URI
+   - Select: **Accounts in this organizational directory only (Single tenant)**
+   - No need to set Redirect URI
 3. Open the app you just created
 4. Go to **API Permissions**
 5. Remove existing permissions
 6. Add a permission
-	1. Choose **Microsoft Graph**
-	2. Choose **Application permission**
-	3. Search for and select `Sites.ReadWrite.All`(or `Sites.Selected`)
-	4. Click **Add permissions**
+   1. Choose **Microsoft Graph**
+   2. Choose **Application permission**
+   3. Search for and select `Sites.ReadWrite.All`(or `Sites.Selected`)
+   4. Click **Add permissions**
 7. Click **Grant admin consent** 
 8. Go to Certificates & Secrets
 9. Create a client secret
-	1. Give it a name, for example **Power Automate Translation Flow**
-	2. Select expires date, for example **720 days**
+   1. Give it a name, for example **Power Automate Translation Flow**
+   2. Select expires date, for example **720 days**
 10. Copy the **secret value** and save it for later use
 11. Go to **Overview**
 12. Copy **Application (client) ID** and save it for later use
@@ -96,9 +95,7 @@ You now have an application with the necessary permissions, along with the **Cl
 4. Navigate to Site Pages library
 5. Go to library settings
 6. Get the library GUID and save it for later use
-
-- GUID can be found from URL, for example `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in between of `%7B` and `%7D` so in this example it would be `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
-
+   - GUID can be found from URL, for example `/_layouts/15/listedit.aspx?List=%7B796ce85d-28cc-4fb0-b9ef-7183ecbc08b7%7D` The guid is in between of `%7B` and `%7D` so in this example it would be `796ce85d-28cc-4fb0-b9ef-7183ecbc08b7`
 7. Get the site address for later use
 
 Now you should have sharepoint configurations done for one site and you should have following information saved:
@@ -160,21 +157,21 @@ Body:
 3. Go to Solutions
 4. Import a solution
 5. During import authorize connections:
-	- **Microsoft Teams**
-	- **SharePoint**
-	- **Microsoft Translator**
+   - **Microsoft Teams**
+   - **SharePoint**
+   - **Microsoft Translator**
 6. During import configure following environment variables
-	- **AutomationAccountEmail**
-	- **ClientID**
-	- **ClientSecret**
-	- **TenantID**
-    - **InitialSiteID**
-    - **InitialSitePagesID**
+   - **AutomationAccountEmail**
+   - **ClientID**
+   - **ClientSecret**
+   - **TenantID**
+   - **InitialSiteID**
+   - **InitialSitePagesID**
 
 7. After the import go to **Parent Flow - Start translation** flow and rename flow from **Parent flow - Start translation** to **Parent flow - Start translation - siteName**
 8. Modify Child flow - Automatic page translations section
-	- Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
-	- Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
+   - Modify **Compose AdaptiveCard Message** from bottom of the flow if needed. This is the message teams card will show
+   - Modify **Post card in chat or channel** from bottom of the flow if needed. This contains teams message title: "`SharePoint sivu on käännetty!`"
 
 > [!IMPORTANT] 
 > If you have multiple sites
@@ -210,11 +207,11 @@ This flow monitors a SharePoint site for newly created items in specific languag
 - **SharePoint Site:** `https://YOURTENANT.sharepoint.com/sites/YOURSITE`
 - **Target Library/Table ID:** `YourSitePagesLibraryID`
 - **Conditions:**
-    - The item path must be one of:
-        - `SitePages/en/`
-        - `SitePages/sv/`
-        - `SitePages/fi/`
-    - The item version number must be `0.1`
+  - The item path must be one of:
+    - `SitePages/fi/`
+    - `SitePages/en/`
+    - `SitePages/sv/`
+  - The item version number must be `0.1`
 
 ##### Trigger condition expressions
 
@@ -226,13 +223,13 @@ This flow monitors a SharePoint site for newly created items in specific languag
 #### Actions
 
 1. **Compose**
-	- **Purpose:** Logs and evaluates trigger conditions.
-	- **Details Captured:**
-	    - Version number
-	    - Path
-	    - Boolean results for:
-	        - Path being in a translation folder
-	        - Version being `0.1`
+    - **Purpose:** Logs and evaluates trigger conditions.
+    - **Details Captured:**
+      - Version number
+      - Path
+      - Boolean results for:
+        - Path being in a translation folder
+        - Version being `0.1`
 
 ```ts
 Version number value: @{triggerBody()?['{VersionNumber}']}
@@ -254,14 +251,14 @@ Is version 0.1?
 ```
 
  2. **Run a Child Flow**
-	- **Type:** `Workflow`
-	- **Triggered After:** Compose action succeeds
-	- **Child Flow Reference ID:** `0c9a29ba-b847-f011-8779-7c1e52500fd6`
-	- **Inputs Passed to Child Flow:**
-	    - `Link`: From the created item
-	    - `createdBy`: Author's email
-	    - `sharepointPageID`: ID of the SharePoint page
-	    - `PagesLibraryGUID`: `YourSitePagesLibraryID`
+    - **Type:** `Workflow`
+    - **Triggered After:** Compose action succeeds
+    - **Child Flow Reference ID:** `0c9a29ba-b847-f011-8779-7c1e52500fd6`
+    - **Inputs Passed to Child Flow:**
+      - `Link`: From the created item
+      - `createdBy`: Author's email
+      - `sharepointPageID`: ID of the SharePoint page
+      - `PagesLibraryGUID`: `YourSitePagesLibraryID`
 
 #### Connections used
 
@@ -278,10 +275,10 @@ This flow automates the translation of SharePoint site pages into a target langu
 - **Manual HTTP Request Trigger**  
     The flow is initiated by an HTTP POST request, typically from another flow or application. Only authorized users specified in `AutomationAccountEmail` environmental variable can trigger it.
 - **HTTP POST request contains**:
-    - `Link`: URL to the SharePoint page
-    - `createdBy`: User to notify
-    - `sharepointPageID`: ID of the SharePoint page
-    - `PagesLibraryGUID`: GUID of the SharePoint Pages library
+  - `Link`: URL to the SharePoint page
+  - `createdBy`: User to notify
+  - `sharepointPageID`: ID of the SharePoint page
+  - `PagesLibraryGUID`: GUID of the SharePoint Pages library
 
 #### Key Parameters
 
@@ -300,9 +297,10 @@ This flow automates the translation of SharePoint site pages into a target langu
     - `OldWebparts` = Original text webparts
     - `NewWebparts` = Translated text webpart
     - `OldStandardWebparts` = Original standard text webparts
-    - `NewStandardWebparts` = Translated standard text webpart 
+    - `NewStandardWebparts` = Translated standard text webpart
     - `at` = @ sign for making HTTP request development easier
-2.  **Get SharePoint Site ID** (Send an HTTP request to SharePoint)
+
+2. **Get SharePoint Site ID** (Send an HTTP request to SharePoint)
     - Sends an HTTP request to SharePoint to get the site ID.
     - URI: `_api/site/id`
     - Method: `GET`
@@ -313,11 +311,11 @@ This flow automates the translation of SharePoint site pages into a target langu
     - URI: `_api/web/lists('@{triggerBody()?['PagesLibraryGUID']}')/items(@{triggerBody()?['sharepointPageID']})/CanvasContent1`
     - Method: `GET`
 5. **Get file metadata** 
-	- Fetches file metadata to parse page ETag GUID for HTTP requests
+    - Fetches file metadata to parse page ETag GUID for HTTP requests
 6. **Get site page webparts** (HTTP)
-	- Fetches page webparts via Microsoft Graph
-	-  URI: `https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage`
-	- Method: `GET`
+    - Fetches page webparts via Microsoft Graph
+    - URI: `https://graph.microsoft.com/v1.0/sites/@{body('Parse_JSON_-_Get_Sharepoint_Site_ID')?['d']?['Id']}/pages/@{outputs('Compose_-_Extract_ETag_GUID')}/microsoft.graph.sitePage`
+    - Method: `GET`
 7. **Determine Target Language**
     - Looks up the target language and language name from a predefined array (`LanguagesArray`) based on the page’s translation settings.
     - If not found, defaults to English.
